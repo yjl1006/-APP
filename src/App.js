@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {addGUN,removeGUN,setI} from'./index.redux'
 
 @connect(
-    state => ({num:state}),
+    state => state.num,
     {addGUN,removeGUN,setI}
 )
 class App extends Component {
