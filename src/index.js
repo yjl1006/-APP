@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
+
 import {Provider} from 'react-redux'
 import {createStore,applyMiddleware,compose} from 'redux'
 import {BrowserRouter,Switch,Route,Redirect} from 'react-router-dom'
 import thunk from 'redux-thunk'
 import reducer from './reducer'
-import App from './App';
-import Auth from './Auth'
-import Dashboard from './Dashboard'
-import './config'
 
-// import * as serviceWorker from './serviceWorker';
+import Login from './container/login/index'
+import Register from './container/register/index'
+import AuthRoute from './component/authRoute/index'
+import BossInfo from './container/bossinfo/index'
+import './config'
+import './index.less'
+
 
 const store = createStore(reducer,compose(
     applyMiddleware(thunk),
@@ -19,16 +21,21 @@ const store = createStore(reducer,compose(
 ))
 
 ReactDOM.render(
-    (<Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route path='./login' component={Auth}></Route>
-                {/* <Route path='./dashboard' component={Dashboard}></Route> */}
-                {/* <Redirect to='./dashboard'></Redirect> */}
-            </Switch>
-        
-        </BrowserRouter>
-        <App />
-    </Provider>),
+    (
+        <Provider store={store}>
+            <BrowserRouter>
+                <div>
+                    <AuthRoute></AuthRoute>
+                    <Switch>
+                        <Route path='/bossinfo' component={BossInfo}></Route>
+                        {/*<Route path='/bossinfo' component={BossInfo}></Route>*/}
+                        <Route path='/login' component={Login}></Route>
+                        <Route path='/register' component={Register}></Route>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+
+        </Provider>
+    ),
     document.getElementById('root')
 );
